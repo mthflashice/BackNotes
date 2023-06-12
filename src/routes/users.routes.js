@@ -15,6 +15,7 @@ function myMiddleware(request,response,next){
 const usersController = new UserController();
 
 usersRoutes.post('/',myMiddleware,usersController.create); 
+usersRoutes.put('/:id', usersController.update);
     
 
 
