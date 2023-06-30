@@ -77,7 +77,7 @@ class NotesController{
             .innerJoin('notes', 'notes.id', 'tags.note_id')
             .orderBy('notes.title')
 
-
+  
         }else{
 
         
