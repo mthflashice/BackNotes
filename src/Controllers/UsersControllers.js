@@ -1,7 +1,7 @@
 const {hash,compare} = require('bcryptjs');
-const appError = require("../utils/appError");
+const appError = require("../routes/utils/appError");
 
-const sqliteConnection = require('../../database/sqlite');
+const sqliteConnection = require('../database/sqlite');
 
 class UserController {
   async create(request, response) {
