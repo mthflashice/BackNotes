@@ -1,9 +1,9 @@
-const ath = require('path')
+const path = require('path')
 const multer = require('multer')
 const crypto = require('crypto')
 
 const TMP_FOLDER = path.resolve(__dirname, '..', '..', 'tmp');
-const UPLOAD_FOLDER = path.resolve(__dirname,'uploads')
+const UPLOAD_FOLDER = path.resolve(TMP_FOLDER,'uploads')
 
 const MULTER = {
      storage: multer.diskStorage({
