@@ -4,6 +4,7 @@ const migrationsRun =require('./database/sqlite/migrations');
 const uploadConfig = require ('./configs/upload')
 
 const express = require('express');
+const cors = require('cors')
 
 const routes = require('./routes');
 const appError = require('./routes/utils/appError');
@@ -11,6 +12,7 @@ const appError = require('./routes/utils/appError');
 
 
 const app = express();
+app.use(cors());
 app.use('/files', express.static(uploadConfig.UPLOAD_FOLDER));
 
 
