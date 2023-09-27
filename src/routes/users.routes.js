@@ -17,16 +17,5 @@ const userAvatarControllers = new UserAvatarControllers();
 usersRoutes.post('/',usersController.create); 
 usersRoutes.put('/',ensureAuthenticated, usersController.update);
 usersRoutes.patch('/avatar',ensureAuthenticated, update.single,userAvatarControllers.update);
-// usersRoutes.patch('/avatar',ensureAuthenticated, update.single('avatar'),(request,response)=>{
-//    console.log(request.file.filename)
-//    response.json()
-// });
-
-
-
-   // response.send(`usuário: ${name}, Email: ${email}, E a senha: ${password}`);
-  
-           
-
 
 module.exports= usersRoutes;
