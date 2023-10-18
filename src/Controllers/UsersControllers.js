@@ -3,7 +3,7 @@ const appError = require("../routes/utils/appError");
 
 const sqliteConnection = require('../database/sqlite');
 const UserRepository = require('../repositories/UserRepository');
-const UserCreateServices = require('../userServices/UserCreateServices');
+const UserCreateServices = require('../services/UserCreateServices');
 
 class UserController {
   async create(request, response) {
