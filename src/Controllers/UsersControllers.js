@@ -2,24 +2,17 @@ const {hash,compare} = require('bcryptjs');
 const appError = require("../routes/utils/appError");
 
 const sqliteConnection = require('../database/sqlite');
-const UserRepository = require('../repositories/UserRepository')
+const UserRepository = require('../repositories/UserRepository');
+const UserCreateServices = require('../userServices/UserCreateServices');
 
 class UserController {
   async create(request, response) {
     const { name, email, password } = request.body;
-
     const userRepository = new UserRepository();
+    const userCreateServices = new UserCreateServices(userRepository);
+    await userCreateServices.execute({name,email,password})
 
-    const checkUserExists = await userRepository.findByEmail(email)
-
-    if(checkUserExists){
-        throw new appError(`Este e-mail já é cadastrado `);
-    }
-
-    const hashedPassword = await hash(password, 8)
-
-
-    await userRepository.create({name, email, password:hashedPassword})
+    
         return response.status(201).json();
   }
 async  update(request, response){
