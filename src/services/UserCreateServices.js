@@ -1,4 +1,4 @@
-const {hash,compare} = require('bcryptjs');
+const {hash} = require('bcryptjs');
 const appError = require("../routes/utils/appError");
 
 class UserCreateServices{
@@ -20,9 +20,11 @@ class UserCreateServices{
     const hashedPassword = await hash(password, 8)
 
 
-    await this.userRepository.create({name, email, password:hashedPassword})
+    const userCreated= await this.userRepository.create({name, email, password:hashedPassword})
+    
+    return userCreated;
     }
 
 }
 
-module.exports= UserCreateServices
+module.exports= UserCreateServices;
