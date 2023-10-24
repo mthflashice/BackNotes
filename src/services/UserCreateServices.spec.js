@@ -4,6 +4,15 @@ const appError = require("../routes/utils/appError");
 
 
 describe('UserCreateServices',()=>{
+    let userRepositoryInMemory = null;
+    let userCreateService = null;
+
+    beforeEach(()=>{
+         userRepositoryInMemory = new UserRepositoryInMemory();
+         userCreateService = new UserCreateServices (userRepositoryInMemory);
+
+    })
+
     it ('user should be create',async()=>{
         const user={
             name: 'User Test',
@@ -11,10 +20,8 @@ describe('UserCreateServices',()=>{
             password: '123'
         };
     
-        const userRepositoryInMemory = new UserRepositoryInMemory();
-        const userCreateServices = new UserCreateServices (userRepositoryInMemory);
-        const userCreated = await userCreateServices.execute(user); 
-    
+      
+        const userCreated = await userCreateService.execute(user); 
         expect(userCreated).toHaveProperty("id");
         
     });
@@ -32,11 +39,10 @@ describe('UserCreateServices',()=>{
             password: "456"
         };
 
-        const userRepository = new UserRepositoryInMemory();
-        const userCreatedService = new UserCreateServices(userRepository)
 
-        await userCreatedService.execute(user1);
-        await expect(userCreatedService.execute(user2)).rejects.toEqual(new appError(`Este e-mail já é cadastrado `))
+        await userCreateService.execute(user1);
+        expect(async()=>{
+            await userCreateService.execute(user2)}).rejects.toEqual(new appError(`Este e-mail já é cadastrado `));
 
     });
 })
