@@ -1,15 +1,15 @@
-const UserCreateServices= require('./UserCreateServices')
+const UserCreateService= require('./UserCreateServices')
 const UserRepositoryInMemory = require('../repositories/UserRepositoryInMemory');
 const appError = require("../routes/utils/appError");
 
 
-describe('UserCreateServices',()=>{
+describe('UserCreateService',()=>{
     let userRepositoryInMemory = null;
     let userCreateService = null;
 
     beforeEach(()=>{
          userRepositoryInMemory = new UserRepositoryInMemory();
-         userCreateService = new UserCreateServices (userRepositoryInMemory);
+         userCreateService = new UserCreateService (userRepositoryInMemory);
 
     })
 
@@ -41,8 +41,9 @@ describe('UserCreateServices',()=>{
 
 
         await userCreateService.execute(user1);
-        expect(async()=>{
-            await userCreateService.execute(user2)}).rejects.toEqual(new appError(`Este e-mail já é cadastrado `));
+        await expect(userCreateService.execute(user2)).rejects.toEqual(new appError(`Este e-mail já é cadastrado`));
+        // expect(async()=>{
+        //     await userCreateService.execute(user2)}).rejects.toEqual(new appError(`Este e-mail já é cadastrado `));
 
     });
 })
